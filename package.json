@@ -1,0 +1,44 @@
+{
+  "name": "capacitor-unimag-swiper",
+  "version": "0.0.1",
+  "description": "Capacitor plugin for IDTech mobile credit card swipers",
+  "main": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && tsc",
+    "clean": "rm -rf ./dist",
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Michael Weiner",
+  "license": "WTFPL",
+  "dependencies": {
+    "@capacitor/core": "latest"
+  },
+  "devDependencies": {
+    "typescript": "^3.2.4",
+    "@capacitor/ios": "latest"
+  },
+  "files": [
+    "dist/",
+    "ios/",
+    "CapacitorUnimagSwiper.podspec"
+  ],
+  "keywords": [
+    "capacitor",
+    "plugin",
+    "native"
+  ],
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mkw2000/capacitor-unimag-swiper"
+  },
+  "bugs": {
+    "url": "https://github.com/mkw2000/capacitor-unimag-swiper/issues"
+  }
+}
