@@ -1,7 +1,7 @@
 
   Pod::Spec.new do |s|
     s.name = 'CapacitorUnimagSwiper'
-    s.version = '0.0.1'
+    s.version = '0.0.3'
     s.summary = 'Capacitor plugin for IDTech mobile credit card swipers'
     s.license = 'WTFPL'
     s.homepage = 'https://github.com/mkw2000/capacitor-unimag-swiper'
