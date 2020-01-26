@@ -37,4 +37,7 @@ export interface CapacitorUnimagSwiperPlugin {
    * Not necessary, but could help when troubleshooting.
    */
   setReaderType(): Promise<void>;
+
+  test(options: { value: string }): Promise<{value: string}>;
+
 }
