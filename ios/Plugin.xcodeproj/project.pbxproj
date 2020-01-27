@@ -15,7 +15,7 @@
 		50ADFFA42020D75100D50D53 /* Capacitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ADFFA52020D75100D50D53 /* Capacitor.framework */; };
 		50ADFFA82020EE4F00D50D53 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ADFFA72020EE4F00D50D53 /* Plugin.m */; };
 		50E1A94820377CB70090CE1A /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A94720377CB70090CE1A /* Plugin.swift */; };
-		E650F7E523DBA2100008E46E /* uniMag.h in Headers */ = {isa = PBXBuildFile; fileRef = E650F7E323DBA2100008E46E /* uniMag.h */; };
+		E650F7E523DBA2100008E46E /* uniMag.h in Headers */ = {isa = PBXBuildFile; fileRef = E650F7E323DBA2100008E46E /* uniMag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E650F7E623DBA2100008E46E /* IDTECH_UniMag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E650F7E423DBA2100008E46E /* IDTECH_UniMag.a */; };
 		E650F7E823DBB35E0008E46E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E650F7E723DBB35E0008E46E /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
@@ -341,6 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -401,6 +402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

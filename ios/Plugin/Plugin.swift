@@ -21,9 +21,9 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     // Type of uniMag reader
     var readerType: UmReader?
     
-    @objc func test(_ call: CAPPluginCall?) {
+    @objc func test(_ call: CAPPluginCall) {
         
-      let value = call.getString("value") ?? ""
+        let value = call.getString("value") ?? ""
         call.resolve([
             "value": value
         ])
