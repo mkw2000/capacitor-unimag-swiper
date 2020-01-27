@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import <Plugin/uniMag.h>
+#import <uniMag.h>
 
 //! Project version number for Plugin.
 FOUNDATION_EXPORT double PluginVersionNumber;
