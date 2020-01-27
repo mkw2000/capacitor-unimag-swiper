@@ -1,6 +1,6 @@
 {
   "name": "capacitor-unimag-swiper",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Capacitor plugin for IDTech mobile credit card swipers",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
