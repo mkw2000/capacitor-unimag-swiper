@@ -10,7 +10,7 @@ export interface CapacitorUnimagSwiperPlugin {
    * Initializes uniMag objext to start listening to SDK events
    * for connection, disconnection, swiping, etc.
    */
-  activateReader(): Promise<void>;
+  activateReader(): Promise<{value: string}>;
 
   /**
    * Releases uniMag object. Because this stops listening to SDK
@@ -25,7 +25,7 @@ export interface CapacitorUnimagSwiperPlugin {
    * called, the user will have 30 seconds to swipe a card before a
    * timeout error occurs.
    */
-  swipe(): Promise<void>;
+  swipe(): Promise<{value: string}>;
 
   /**
    * Turns SDK logs on or off.

@@ -95,6 +95,7 @@
 		DE97A6C8248A27A16865A3B35C3905FE /* CDVInvokedUrlCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = AC486B5C94066656F767B2E147076EF2 /* CDVInvokedUrlCommand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E003DDFBEAB72C1DE48398C926E3A3AE /* CDVUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 103E4809E8225B0C3D5F4A4D7802F5CC /* CDVUserAgentUtil.m */; };
 		E171E04D302968E8C03D0E71D459F694 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1225DDDFD9C1C6E75720110A95731C /* LocalNotifications.swift */; };
+		E6E17C9B23DF75A900474EA6 /* IDTECH_UniMag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6E17C9A23DF75A900474EA6 /* IDTECH_UniMag.a */; };
 		E739CE88E18C2536132F8F454177C390 /* Capacitor-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFD38C1ECFB0698719B786EB9E5D1F3 /* Capacitor-dummy.m */; };
 		E9716479F6B8424D69D65B3FBDE458A5 /* Pods-PluginTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E74390F09A29D254E98C5610DDD5A28 /* Pods-PluginTests-dummy.m */; };
 		E9AE68E10C25DDAC0F197722AB80F5F6 /* CAPAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D65FF6054A8A892E3A363B45EE8A31F /* CAPAppDelegate.swift */; };
@@ -259,6 +260,7 @@
 		DE2FEEB1F483DEA9C702B689CDF73DEC /* Storage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		E14A116E19E7B81D5AE183982EB58908 /* UILabel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UILabel.swift; path = ios/Capacitor/Capacitor/UILabel.swift; sourceTree = "<group>"; };
 		E2B54DAD41CE677F60FCA61AFD6B1F2F /* CAPBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CAPBridge.swift; path = ios/Capacitor/Capacitor/CAPBridge.swift; sourceTree = "<group>"; };
+		E6E17C9A23DF75A900474EA6 /* IDTECH_UniMag.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = IDTECH_UniMag.a; path = ../Plugin/IDTECH_UniMag.a; sourceTree = "<group>"; };
 		E8950E00418A9BCE1D0E315A85B496FB /* Pods-PluginTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-PluginTests.modulemap"; sourceTree = "<group>"; };
 		F7C4A820EE0F4D52EC58E86CFB06CF85 /* AppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FBD93D36D06B546B5015A4716941DCBB /* Pods-PluginTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PluginTests-umbrella.h"; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6E17C9B23DF75A900474EA6 /* IDTECH_UniMag.a in Frameworks */,
 				7C154F48468730F8A6BDDD98A8EA329C /* Cordova.framework in Frameworks */,
 				F1EFAEB213FD476238B0DAE2FFC50CB3 /* Foundation.framework in Frameworks */,
 			);
@@ -343,6 +346,7 @@
 		5751801D79E9B5E4730ADC54EEA299E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E6E17C9A23DF75A900474EA6 /* IDTECH_UniMag.a */,
 				351CAFB01AE1CE21F3443E3CD9E750E4 /* Cordova.framework */,
 				CE56A1F049702CC9B39E93731044ABCF /* iOS */,
 			);
@@ -960,6 +964,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/Capacitor/Capacitor-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Capacitor/Capacitor-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1195,6 +1200,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/Capacitor/Capacitor-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Capacitor/Capacitor-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

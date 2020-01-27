@@ -17,7 +17,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     // Indicates if the containing app has not manually deactivated reader
     var readerActivated = false
     // Stores user preference, default false
-    var enableLogs = false
+    var enableLogs = true
     // Type of uniMag reader
     var readerType: UmReader?
     
@@ -44,15 +44,15 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     
     @objc func initPlugin() {
         if !pluginInited {
-            uniMag.enableLogging(enableLogs)
+            uniMag.enableLogging(true)
             
             let center = NotificationCenter.default
             
             center.addObserver(self, selector: #selector(onPause), name:
-                NSNotification.Name.UIApplicationWillResignActive, object: nil)
+                UIApplication.willResignActiveNotification, object: nil)
             
             center.addObserver(self, selector: #selector(onResume), name:
-                NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+                UIApplication.didBecomeActiveNotification, object: nil)
             
             pluginInited = true
         }
@@ -224,32 +224,32 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      *        The command sent from JavaScript
      */
     
-    //    @objc func enableLogs(_ call: CAPPluginCall) {
-    //
-    //        var result: CDVPluginResult?
-    //
-    //        if command.arguments.count() > 0 {
-    //            // Store preference
-    //            enableLogs = Bool(command.arguments[0])
-    //
-    //            // Apply preference now if possible, otherwise it will be
-    //            // applied when swiper is started
-    //            if reader {
-    //                uniMag.enableLogging(enableLogs)
-    //            }
-    //
-    //            result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Logging \(enableLogs ? "en" : "dis")abled.")
-    //        } else {
-    //            result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Boolean 'enable' not specified.")
-    //        }
-    //
-    //        commandDelegate.send(result, callbackId: command.callbackId())
-    //
-    //
-    //        call.success([
-    //            "value": "enable logs",
-    //        ])
-    //    }
+//        @objc func enableLogs(_ call: CAPPluginCall) {
+//
+//            var result: CDVPluginResult?
+//
+//            if command.arguments.count() > 0 {
+//                // Store preference
+//                enableLogs = Bool(command.arguments[0])
+//
+//                // Apply preference now if possible, otherwise it will be
+//                // applied when swiper is started
+//                if reader {
+//                    uniMag.enableLogging(enableLogs)
+//                }
+//
+//                result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Logging \(enableLogs ? "en" : "dis")abled.")
+//            } else {
+//                result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Boolean 'enable' not specified.")
+//            }
+//
+//            commandDelegate.send(result, callbackId: command.callbackId())
+//
+//
+//            call.success([
+//                "value": "enable logs",
+//            ])
+//        }
     
     
     /**
@@ -303,6 +303,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     
     @objc func umConnecting(_ notification: Notification?) {
+        print("connecting")
         fireEvent("connecting")
     }
     
@@ -311,6 +312,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * the device. Swipe cannot be performed until this has been called.
      */
     @objc func umConnected(_ notification: Notification?) {
+        print("connected")
+
         fireEvent("connected")
     }
     
@@ -319,6 +322,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * from the device.
      */
     @objc func umDisconnected(_ notification: Notification?) {
+        print("disconnected")
+
         fireEvent("disconnected")
     }
     
@@ -326,6 +331,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * Receive notification from the SDK when connection task has timed out.
      */
     @objc func umConnectionTimeout(_ notification: Notification?) {
+        print("connectiontimeout")
+
         fireEvent("timeout", withData: "Connection timed out.")
     }
     
@@ -333,6 +340,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * Receive notification from SDK when system volume is too low to connect.
      */
     @objc func umConnection_InsufficientPower(_ notification: Notification?) {
+        print("volume too low")
+
         fireEvent("timeout", withData: "Volume too low. Please maximize volume before reattaching swiper.")
     }
     
@@ -341,6 +350,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * blocking a connection.
      */
     @objc func umConnectionMonoAudio(_ notification: Notification?) {
+        print("mono audio enabled")
+
         fireEvent("timeout", withData: "Mono audio is enabled. Please disable it in your iOS settings.")
     }
     
@@ -348,6 +359,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * Receive notification from the SDK when swipe task has timed out.
      */
     @objc func umSwipeTimeout(_ notification: Notification?) {
+        print("swipe timed out")
+
         fireEvent("timeout", withData: "Swipe timed out.")
     }
     
@@ -356,6 +369,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * the swiper after requestSwipe API method is called.
      */
     @objc func umSwipeProcessing(_ notification: Notification?) {
+        print("swipe processing")
+
         fireEvent("swipe_processing")
     }
     
@@ -364,6 +379,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * crooked swipe) rather than behave as if no swipe was made.
      */
     @objc func umSwipeError(_ notification: Notification?) {
+        print("swipe error")
+
         fireEvent("swipe_error")
     }
     
@@ -372,6 +389,8 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * the raw card data and sends resulting JSON with event.
      */
     @objc func umSwipeReceived(_ notification: Notification?) {
+        print("swipe received")
+
         //        let data = notification?.object as? Data
         
         //        var cardData: String? = nil
