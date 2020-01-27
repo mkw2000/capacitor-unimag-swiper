@@ -181,40 +181,46 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      *        The command sent from JavaScript
      */
     
-    //    @objc func swipe(_ call: CAPPluginCall) {
-    //
-    //        DispatchQueue.global(qos: .background).async {
-    //            print("This is run on the background queue")
-    ////            var result: CDVPluginResult?
-    //
-    //            if self.reader != nil {
-    //                guard let reader = self.reader else {
-    //                    return
-    //                };
-    //                if reader.getConnectionStatus() {
-    //                    reader.cancelTask()
-    //
-    //                    // Store status of swipe task
-    //                    let swipeStarted = reader.requestSwipe()
-    //
-    //                    if swipeStarted == UMRET_SUCCESS {
-    //                        result = CDVPluginResult(status: CDVCommandStatus_OK)
-    //                    } else {
-    //                        result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Failed to start swipe: \(self.getUmRetErrorMessage(swipeStarted))")
-    //                    }
-    //                } else {
-    //                    result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Reader has been activated but is not connected.")
-    //                }
-    //            } else {
-    //                result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Reader must be activated before starting swipe.")
-    //            }
-    //
-    //            self.commandDelegate.send(result, callbackId: command.callbackId())
-    //
-    //
-    //        }
-    //
-    //    }
+    @objc func swipe(_ call: CAPPluginCall?) {
+        
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
+            //            var result: CDVPluginResult?
+            
+            if self.reader != nil {
+                guard let reader = self.reader else {
+                    return
+                };
+                if reader.getConnectionStatus() {
+                    reader.cancelTask()
+                    
+                    // Store status of swipe task
+                    let swipeStarted = reader.requestSwipe()
+                    
+                    if swipeStarted == UMRET_SUCCESS {
+                        call?.resolve([
+                            "value": "success",
+                        ])
+                    } else {
+                        call?.reject("fail")
+                        
+                    }
+                } else {
+                    call?.resolve([
+                        "value": "reader activated but not connected",
+                    ])
+                }
+            } else {
+                call?.resolve([
+                    "value": "Reader must be activated before starting swipe.",
+                ])
+            }
+            
+            
+            
+        }
+        
+    }
     
     
     /**
@@ -224,32 +230,32 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      *        The command sent from JavaScript
      */
     
-//        @objc func enableLogs(_ call: CAPPluginCall) {
-//
-//            var result: CDVPluginResult?
-//
-//            if command.arguments.count() > 0 {
-//                // Store preference
-//                enableLogs = Bool(command.arguments[0])
-//
-//                // Apply preference now if possible, otherwise it will be
-//                // applied when swiper is started
-//                if reader {
-//                    uniMag.enableLogging(enableLogs)
-//                }
-//
-//                result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Logging \(enableLogs ? "en" : "dis")abled.")
-//            } else {
-//                result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Boolean 'enable' not specified.")
-//            }
-//
-//            commandDelegate.send(result, callbackId: command.callbackId())
-//
-//
-//            call.success([
-//                "value": "enable logs",
-//            ])
-//        }
+    //        @objc func enableLogs(_ call: CAPPluginCall) {
+    //
+    //            var result: CDVPluginResult?
+    //
+    //            if command.arguments.count() > 0 {
+    //                // Store preference
+    //                enableLogs = Bool(command.arguments[0])
+    //
+    //                // Apply preference now if possible, otherwise it will be
+    //                // applied when swiper is started
+    //                if reader {
+    //                    uniMag.enableLogging(enableLogs)
+    //                }
+    //
+    //                result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Logging \(enableLogs ? "en" : "dis")abled.")
+    //            } else {
+    //                result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Boolean 'enable' not specified.")
+    //            }
+    //
+    //            commandDelegate.send(result, callbackId: command.callbackId())
+    //
+    //
+    //            call.success([
+    //                "value": "enable logs",
+    //            ])
+    //        }
     
     
     /**
@@ -313,7 +319,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umConnected(_ notification: Notification?) {
         print("connected")
-
+        
         fireEvent("connected")
     }
     
@@ -323,7 +329,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umDisconnected(_ notification: Notification?) {
         print("disconnected")
-
+        
         fireEvent("disconnected")
     }
     
@@ -332,7 +338,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umConnectionTimeout(_ notification: Notification?) {
         print("connectiontimeout")
-
+        
         fireEvent("timeout", withData: "Connection timed out.")
     }
     
@@ -341,7 +347,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umConnection_InsufficientPower(_ notification: Notification?) {
         print("volume too low")
-
+        
         fireEvent("timeout", withData: "Volume too low. Please maximize volume before reattaching swiper.")
     }
     
@@ -351,7 +357,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umConnectionMonoAudio(_ notification: Notification?) {
         print("mono audio enabled")
-
+        
         fireEvent("timeout", withData: "Mono audio is enabled. Please disable it in your iOS settings.")
     }
     
@@ -360,7 +366,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umSwipeTimeout(_ notification: Notification?) {
         print("swipe timed out")
-
+        
         fireEvent("timeout", withData: "Swipe timed out.")
     }
     
@@ -370,7 +376,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umSwipeProcessing(_ notification: Notification?) {
         print("swipe processing")
-
+        
         fireEvent("swipe_processing")
     }
     
@@ -380,7 +386,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umSwipeError(_ notification: Notification?) {
         print("swipe error")
-
+        
         fireEvent("swipe_error")
     }
     
@@ -390,7 +396,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     @objc func umSwipeReceived(_ notification: Notification?) {
         print("swipe received")
-
+        
         //        let data = notification?.object as? Data
         
         //        var cardData: String? = nil
