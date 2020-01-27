@@ -38,6 +38,6 @@ export interface CapacitorUnimagSwiperPlugin {
    */
   setReaderType(): Promise<void>;
 
-  test(options: { value: string }): Promise<{value: string}>;
+  test(options: { value: string }): Promise<{attached: string, connected: string }>;
 
 }

@@ -23,9 +23,29 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     
     @objc func test(_ call: CAPPluginCall) {
         
-        let value = call.getString("value") ?? ""
+        guard let reader = self.reader else {
+            call.reject("reader is nil in test")
+            return
+        }
+        
+        let active = reader.isReaderAttached()
+        let connected = reader.getConnectionStatus();
+        var isConnected = ""
+        var isActive = ""
+        if active == true {
+            isActive = "true"
+        } else {
+            isActive = "false"
+        }
+        
+        if connected == true {
+            isConnected = "true"
+        } else {
+            isConnected = "false"
+        }
         call.resolve([
-            "value": value
+            "attached": isActive,
+            "connected": isConnected
         ])
         
         
@@ -129,16 +149,20 @@ public class CapacitorUnimagSwiper: CAPPlugin {
                 if call != nil {
                     self.readerActivated = true;
                     
-                    if activated == UMRET_SUCCESS || activated == UMRET_NO_READER {
+                    if activated == UMRET_SUCCESS {
                         call?.resolve([
                             "value": "activate reader",
                         ])
                         
+                    } else if activated == UMRET_NO_READER {
+                        call?.resolve([
+                            "value": "no reader",
+                        ])
                     } else {
                         call?.reject("rejected in active reeader")
                     }
                 } else {
-                    call?.reject("reader is nil")
+                    call?.reject("call is nil")
                 }
             }
             
@@ -191,18 +215,18 @@ public class CapacitorUnimagSwiper: CAPPlugin {
                 guard let reader = self.reader else {
                     return
                 };
-                if reader.getConnectionStatus() {
+                if reader.getConnectionStatus() == true {
                     reader.cancelTask()
                     
                     // Store status of swipe task
                     let swipeStarted = reader.requestSwipe()
-                    
+                    print(swipeStarted)
                     if swipeStarted == UMRET_SUCCESS {
                         call?.resolve([
-                            "value": "success",
+                            "value": "swipe started",
                         ])
                     } else {
-                        call?.reject("fail")
+                        call?.reject("swipe fail")
                         
                     }
                 } else {
