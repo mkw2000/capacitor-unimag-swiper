@@ -27,17 +27,4 @@ export interface CapacitorUnimagSwiperPlugin {
    */
   swipe(): Promise<{value: string}>;
 
-  /**
-   * Turns SDK logs on or off.
-   */
-  enableLogs(): Promise<void>;
-
-  /**
-   * Sets reader type as specified if valid.
-   * Not necessary, but could help when troubleshooting.
-   */
-  setReaderType(): Promise<void>;
-
-  test(options: { value: string }): Promise<{attached: string, connected: string }>;
-
 }

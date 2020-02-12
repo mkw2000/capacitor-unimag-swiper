@@ -8,8 +8,4 @@ CAP_PLUGIN(CapacitorUnimagSwiper, "CapacitorUnimagSwiper",
 CAP_PLUGIN_METHOD(activateReader, CAPPluginReturnPromise);
 CAP_PLUGIN_METHOD(deactivateReader, CAPPluginReturnPromise);
 CAP_PLUGIN_METHOD(swipe, CAPPluginReturnPromise);
-CAP_PLUGIN_METHOD(enableLogs, CAPPluginReturnPromise);
-CAP_PLUGIN_METHOD(setReaderType, CAPPluginReturnPromise);
-CAP_PLUGIN_METHOD(test, CAPPluginReturnPromise);
-
 )

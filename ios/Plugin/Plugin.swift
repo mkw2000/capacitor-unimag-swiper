@@ -21,37 +21,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     // Type of uniMag reader
     var readerType: UmReader?
     
-    @objc func test(_ call: CAPPluginCall) {
-        
-        guard let reader = self.reader else {
-            call.reject("reader is nil in test")
-            return
-        }
-        
-        let active = reader.isReaderAttached()
-        let connected = reader.getConnectionStatus();
-        var isConnected = ""
-        var isActive = ""
-        if active == true {
-            isActive = "true"
-        } else {
-            isActive = "false"
-        }
-        
-        if connected == true {
-            isConnected = "true"
-        } else {
-            isConnected = "false"
-        }
-        call.resolve([
-            "attached": isActive,
-            "connected": isConnected
-        ])
-        
-        
-    }
-    
-    
     /***************************************************
      * LIFECYCLE
      ***************************************************/
@@ -144,8 +113,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
                 // Store status of connection task
                 let activated = self.reader!.start(true)
                 
-                
-                
                 if call != nil {
                     self.readerActivated = true;
                     
@@ -171,7 +138,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     }
     
     @objc func deactivateReader(_ call: CAPPluginCall?) {
-        
         
         if self.reader != nil {
             self.reader?.cancelTask()
@@ -240,87 +206,9 @@ public class CapacitorUnimagSwiper: CAPPlugin {
                 ])
             }
             
-            
-            
         }
         
     }
-    
-    
-    /**
-     * Turns SDK logs on or off.
-     *
-     * @param {CDVInvokedUrlCommand*} command
-     *        The command sent from JavaScript
-     */
-    
-    //        @objc func enableLogs(_ call: CAPPluginCall) {
-    //
-    //            var result: CDVPluginResult?
-    //
-    //            if command.arguments.count() > 0 {
-    //                // Store preference
-    //                enableLogs = Bool(command.arguments[0])
-    //
-    //                // Apply preference now if possible, otherwise it will be
-    //                // applied when swiper is started
-    //                if reader {
-    //                    uniMag.enableLogging(enableLogs)
-    //                }
-    //
-    //                result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Logging \(enableLogs ? "en" : "dis")abled.")
-    //            } else {
-    //                result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Boolean 'enable' not specified.")
-    //            }
-    //
-    //            commandDelegate.send(result, callbackId: command.callbackId())
-    //
-    //
-    //            call.success([
-    //                "value": "enable logs",
-    //            ])
-    //        }
-    
-    
-    /**
-     * Sets reader type as specified if valid.
-     * Not necessary, but could help when troubleshooting.
-     *
-     * @param {CDVInvokedUrlCommand*} command
-     *        The command sent from JavaScript
-     */
-    
-    
-    //    @objc func setReaderType(_ call: CAPPluginCall) {
-    //
-    //        var result: CDVPluginResult?
-    //
-    //        if command.arguments.count() > 0 {
-    //            let type = command.arguments[0] as? String
-    //            let types = ["UMREADER_UNKNOWN", "UMREADER_UNIMAG", "UMREADER_UNIMAG_PRO", "UMREADER_UNIMAG_II", "UMREADER_SHUTTLE"]
-    //
-    //            // Get type
-    //            let n = types.firstIndex(of: type ?? "") ?? NSNotFound
-    //
-    //            // Store type
-    //            readerType = n as? UmReader
-    //
-    //            if reader {
-    //                reader.readerType = readerType
-    //            }
-    //
-    //            result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Reader type set as \"\(type ?? "")\".")
-    //        } else {
-    //            result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAsString: "Reader type not specified.")
-    //        }
-    //
-    //        commandDelegate.send(result, callbackId: command.callbackId())
-    //
-    //
-    //        call.success([
-    //            "value": "set reader type",
-    //        ])
-    //    }
     
     
     /***************************************************
@@ -333,7 +221,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     
     @objc func umConnecting(_ notification: Notification?) {
-        print("connecting")
         fireEvent("connecting")
     }
     
@@ -342,8 +229,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * the device. Swipe cannot be performed until this has been called.
      */
     @objc func umConnected(_ notification: Notification?) {
-        print("connected")
-        
         fireEvent("connected")
     }
     
@@ -352,8 +237,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * from the device.
      */
     @objc func umDisconnected(_ notification: Notification?) {
-        print("disconnected")
-        
         fireEvent("disconnected")
     }
     
@@ -361,8 +244,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * Receive notification from the SDK when connection task has timed out.
      */
     @objc func umConnectionTimeout(_ notification: Notification?) {
-        print("connectiontimeout")
-        
         fireEvent("timeout", withData: "Connection timed out.")
     }
     
@@ -370,8 +251,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * Receive notification from SDK when system volume is too low to connect.
      */
     @objc func umConnection_InsufficientPower(_ notification: Notification?) {
-        print("volume too low")
-        
         fireEvent("timeout", withData: "Volume too low. Please maximize volume before reattaching swiper.")
     }
     
@@ -380,8 +259,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * blocking a connection.
      */
     @objc func umConnectionMonoAudio(_ notification: Notification?) {
-        print("mono audio enabled")
-        
         fireEvent("timeout", withData: "Mono audio is enabled. Please disable it in your iOS settings.")
     }
     
@@ -389,8 +266,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * Receive notification from the SDK when swipe task has timed out.
      */
     @objc func umSwipeTimeout(_ notification: Notification?) {
-        print("swipe timed out")
-        
         fireEvent("timeout", withData: "Swipe timed out.")
     }
     
@@ -399,8 +274,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * the swiper after requestSwipe API method is called.
      */
     @objc func umSwipeProcessing(_ notification: Notification?) {
-        print("swipe processing")
-        
         fireEvent("swipe_processing")
     }
     
@@ -409,8 +282,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * crooked swipe) rather than behave as if no swipe was made.
      */
     @objc func umSwipeError(_ notification: Notification?) {
-        print("swipe error")
-        
         fireEvent("swipe_error")
     }
     
@@ -419,22 +290,22 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * the raw card data and sends resulting JSON with event.
      */
     @objc func umSwipeReceived(_ notification: Notification?) {
-        print("swipe received")
         
-        //        let data = notification?.object as? Data
+                let data = notification?.object as? Data
         
-        //        var cardData: String? = nil
-        //        if let data = data {
-        //            cardData = String(data: data, encoding: .ascii)
-        //        }
-        //
-        //        let parsedCardData = parseCardData(cardData)
+                var cardData: String? = nil
+                if let data = data {
+                    cardData = String(data: data, encoding: .ascii)
+                }
         
-        //        if parsedCardData != "" {
-        //            fireEvent("swipe_success", withData: parsedCardData)
-        //        } else {
-        //            fireEvent("swipe_error")
-        //        }
+                let parsedCardData = parseCardData(cardData)
+        
+                if parsedCardData != "" {
+                    print(parsedCardData)
+                    fireEvent("swipe_success", withData: parsedCardData)
+                } else {
+                    fireEvent("swipe_error")
+                }
     }
     
     /***************************************************
@@ -477,7 +348,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
             center.removeObserver(self, name: NSNotification.Name("uniMagInvalidSwipeNotification"), object: nil)
             center.removeObserver(self, name: NSNotification.Name("uniMagPoweringNotification"), object: nil)
             
-            
         }
         
     }
@@ -490,48 +360,51 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      *         Stringified JSON representation of parsed card data
      */
     
-    //    @objc func parseCardData(_ data: String?) -> String? {
-    //        var num: String?
-    //        var name: [AnyHashable]?
-    //        var exp: String?
-    //
-    //        var error: Error? = nil
-    //        var cardParser: NSRegularExpression? = nil
-    //        do {
-    //            cardParser = try NSRegularExpression(pattern: "%B(\\d+)\\^([^\\^]+)\\^(\\d{4})", options: [])
-    //        } catch {
-    //        }
-    //
-    //        let matches = cardParser?.matches(in: data ?? "", options: [], range: NSRange(location: 0, length: data?.count ?? 0))
-    //
-    //        if matches?.count != nil {
-    //            if let range = matches?[0].range(at: 1) {
-    //                num = (data as NSString?)?.substring(with: range)
-    //            }
-    //
-    //            if let range = matches?[0].range(at: 2) {
-    //                name = ((data as NSString?)!.substring(with: range)).components(separatedBy: "/")
-    //            }
-    //
-    //            if let range = matches?[0].range(at: 3) {
-    //                exp = (data as NSString?)?.substring(with: range)
-    //            }
-    //
-    //            if num != nil && (name?.count ?? 0) >= 2 && name?[0] != nil && name?[1] != nil && exp != nil {
-    //                let cardData = [
-    //                    "card_number" : num ?? "",
-    //                    "expiry_month" : (exp as NSString?)?.substring(from: 2),
-    //                    "expiry_year" : (exp as NSString?)?.substring(to: 2),
-    //                    "first_name" : name?[1].trimmingCharacters(in: CharacterSet.whitespaces),
-    //                    "last_name" : name?[0].trimmingCharacters(in: CharacterSet.whitespaces),
-    //                    "trimmedUnimagData" : data?.components(separatedBy: CharacterSet.whitespacesAndNewlines).joined(separator: "")
-    //                ]
-    //
-    //                return String(data: try? JSONSerialization.data(withJSONObject: cardData, options: []), encoding: .utf8)
-    //            }
-    //        }
-    //        return nil
-    //    }
+        @objc func parseCardData(_ data: String?) -> String? {
+            var num: String?
+            var name: [AnyHashable]?
+            var exp: String?
+    
+            var error: Error? = nil
+            var cardParser: NSRegularExpression? = nil
+            do {
+                cardParser = try NSRegularExpression(pattern: "%B(\\d+)\\^([^\\^]+)\\^(\\d{4})", options: [])
+            } catch {
+            }
+    
+            let matches = cardParser?.matches(in: data ?? "", options: [], range: NSRange(location: 0, length: data?.count ?? 0))
+    
+            if matches?.count != nil {
+                if let range = matches?[0].range(at: 1) {
+                    num = (data as NSString?)?.substring(with: range)
+                }
+    
+                if let range = matches?[0].range(at: 2) {
+                    name = ((data as NSString?)!.substring(with: range)).components(separatedBy: "/")
+                }
+    
+                if let range = matches?[0].range(at: 3) {
+                    exp = (data as NSString?)?.substring(with: range)
+                }
+    
+                if num != nil && (name?.count ?? 0) >= 2 && name?[0] != nil && name?[1] != nil && exp != nil {
+                      
+                    let firstName = name?[0] as! String;
+                    let lastName = name?[1] as! String;
+                    let cardData: [String : Any] = [
+                        "card_number" : num ?? "",
+                        "expiry_month" : (exp as NSString?)?.substring(from: 2),
+                        "expiry_year" : (exp as NSString?)?.substring(to: 2),
+                        "first_name" : firstName,
+                        "last_name" : lastName,
+                        "trimmedUnimagData" : data?.components(separatedBy: CharacterSet.whitespacesAndNewlines).joined(separator: "")
+                    ]
+    
+                    return String(data: try! JSONSerialization.data(withJSONObject: cardData, options: []), encoding: .utf8)
+                }
+            }
+            return nil
+        }
     
     
     /**
@@ -562,7 +435,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
         }
     }
     
-    
     /**
      * Pass event to method overload.
      *
@@ -574,7 +446,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
         fireEvent(event, withData: nil)
     }
     
-    
     /**
      * Format and send event to JavaScript side.
      *
@@ -585,9 +456,10 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
     
     @objc func fireEvent(_ event: String?, withData data: String?) {
+        print("firing event")
+        print(event)
         let dataArg = data != nil ? "','\(data ?? "")" : ""
         self.notifyListeners(event, data: ["data" : dataArg])
     }
-    
     
 }
