@@ -10,6 +10,7 @@
     s.source_files = 'ios/Plugin/**/*.{swift,h,m,c,cc,mm,cpp}'
     s.ios.deployment_target  = '11.0'
     s.public_header_files = 'Plugin/uniMag.h'
-    s.ios.vendored_library = 'Plugin/IDTECH_UniMag.a'
+    s.ios.vendored_library = 'Plugin/libIDTECH_UniMag.a'
+    s.preserve_paths = 'Plugin/libIDTECH_UniMag.a'
     s.dependency 'Capacitor'
   end
