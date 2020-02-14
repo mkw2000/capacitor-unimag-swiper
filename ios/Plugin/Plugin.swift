@@ -54,7 +54,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
 
     @objc func onPause(_ notification: Notification?) {
         if readerActivated {
-            //            deactivateReader(nil)
+            deactivateReader(nil)
         }
     }
 
@@ -456,8 +456,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      */
 
     @objc func fireEvent(_ event: String?, withData data: String?) {
-        print("firing event")
-        print(event)
         let dataArg = data != nil ? "','\(data ?? "")" : ""
         self.notifyListeners(event, data: ["data" : dataArg])
     }

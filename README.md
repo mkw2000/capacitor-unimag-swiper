@@ -13,9 +13,8 @@ npm install capacitor-unimag-swiper
 ```
 
 ```
-npx cap sync ios 
+npx cap sync ios
 ```
-
 
 ## Usage
 
@@ -25,9 +24,9 @@ A reader may be either **attached** or **detached**. It is attached when it is p
 
 To initiate the swipe process, call the **swipe** method on your plugin object. After this method has been called you can physically swipe the card. The data will be parsed and returned if valid. This will result in a **"swipe_success"** event containing the data (it will be stringified, you will need to parse it). If the card data was invalid, or the swipe was otherwise unsuccessful (e.g., if it was crooked) you a **"swipe_error"** event will be fired instead.
 
-You can deactivate the reader by calling the **deactivate** method on your plugin object. Once the reader has been deactivated, it will not listen to attachment/detachment and will never attempt a connection. The reader need not be attached for it to be activated successfully - if it is activated, it will automatically detect attachment/detachment and handle connection as such.
+You can deactivate the reader by calling the **deactivate** method. Once the reader has been deactivated, it will not listen to attachment/detachment and will never attempt a connection. The reader need not be attached for it to be activated successfully - if it is activated, it will automatically detect attachment/detachment and handle connection as such.
 
-NOTE: To use this plugin you'll need to disable bitcode. You can do this by clicking on your project in Xcode and going to Build Settings. Search for 'bitcode', and you'l see an 'Enable Bitcode' setting. Change this to 'No'. There is currently no way for me to configure this through the plugin, as far as I'm aware.
+NOTE: To use this plugin you'll need to disable bitcode. You can do this by clicking on your project in Xcode and going to Build Settings. Search for 'bitcode', and you'l see an 'Enable Bitcode' setting. Change this to 'No'. 
 
 ## Events
 
@@ -49,76 +48,44 @@ See Sample section for how exactly to capture the events listed below.
 
 ## Sample
 
-The sample demonstrates how to activate the reader, capture events, and swipe a card.
-
 ```javascript
-document.addEventListener(
-  "deviceready",
-  function() {
-    cordova.plugins.unimag.swiper.activate();
-    cordova.plugins.unimag.swiper.enableLogs(true);
-    cordova.plugins.unimag.swiper.setReaderType("unimag_ii");
 
-    var connected = false;
+const { CapacitorUnimagSwiper } = Plugins;
 
-    var swipe = function() {
-      if (connected) {
-        cordova.plugins.unimag.swiper.swipe(
-          function successCallback() {
-            console.log("SUCCESS: Swipe started.");
-          },
-          function errorCallback() {
-            console.log("ERROR: Could not start swipe.");
-          }
-        );
-      } else console.log("ERROR: Reader is not connected.");
-    };
+connected = false;
+activated = false;
 
-    cordova.plugins.unimag.swiper.on("connected", function() {
-      connected = true;
-    });
+async activate() {
+    const result = await CapacitorUnimagSwiper.activateReader();
+    result === "active" ? this.activated = true : this.activated = false;
+}
 
-    cordova.plugins.unimag.swiper.on("disconnected", function() {
-      connected = false;
-    });
-
-    cordova.plugins.unimag.swiper.on("swipe_success", function(e) {
-      var data = JSON.parse(e.detail);
-      console.log("cardholder name: " + data.first_name + " " + data.last_name);
-      console.log("card number:" + data.card_number);
-      console.log("expiration:" + data.expiry_month + "/" + data.expiry_year);
-    });
-
-    cordova.plugins.unimag.swiper.on("swipe_error", function() {
-      console.log("ERROR: Could not parse card data.");
-    });
-
-    cordova.plugins.unimag.swiper.on("timeout", function(e) {
-      if (connected) {
-        console.log("ERROR: Swipe timed out - " + e.detail);
-      } else {
-        console.log("ERROR: Connection timed out - " + e.detail);
-      }
-    });
-  },
-  false
-); 
+ngOnInit() {
 
 
-    async activate() {
-        const result = await CapacitorUnimagSwiper.activateReader();
-        if (result === "active") {
-            this.activated = true;
-        } else {
+Plugins.CapacitorUnimagSwiper.addListener('uniMagPoweringNotification', (info: any) => {
+    console.log('Swiper connecting');
+});
 
-        }
-    }
+Plugins.CapacitorUnimagSwiper.addListener('uniMagDidConnectNotification', (info: any) => {
+    console.log('Swiper connected');
+    this.connected = true;
+});
 
-    async ngOnInit() {
-    
-    
-    
-    }
+Plugins.CapacitorUnimagSwiper.addListener('uniMagDidDisconnectNotification', (info: any) => {
+    console.log('Swiper disconnected');
+    this.connected = false;
+});
+
+Plugins.CapacitorUnimagSwiper.addListener('uniMagDidReceiveDataNotification', (info: any) => {
+    // data from successful card swipe
+    let responseData = JSON.parse(info.detail);
+    console.log('Swipe success', cardData);
+});
+        
+    this.activate();
+
+}
 
 ```
 
