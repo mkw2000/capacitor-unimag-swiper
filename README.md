@@ -89,7 +89,7 @@ Plugins.CapacitorUnimagSwiper.addListener('uniMagDidReceiveDataNotification', (i
 
 ```
 
-## Contributing (please do!)
+## Contributing 
 
 1. Fork this repo.
 2. Create your own branch. (`git checkout -b my-feature`)
@@ -99,4 +99,4 @@ Plugins.CapacitorUnimagSwiper.addListener('uniMagDidReceiveDataNotification', (i
 
 ## License
 
-This software is released under the <a href="http://www.wtfpl.net/">WTFPL License</a>.
+This software is released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.
