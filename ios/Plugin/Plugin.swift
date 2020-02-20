@@ -72,7 +72,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
 
 
     /***************************************************
-     * JAVASCRIPT INTERFACE IMPLEMENTATION
+     * TYPESCRIPT  INTERFACE IMPLEMENTATION
      ***************************************************/
 
     /**
@@ -307,7 +307,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     /**
      * Adds or removes observers for SDK notifications.
      *
-     * @param {BOOL} listen
+     * @param {Bool} listen
      *        Whether to register
      */
 
@@ -346,9 +346,9 @@ public class CapacitorUnimagSwiper: CAPPlugin {
 
     /**
      * Uses a regex to parse raw card data.
-     * @param  {NSString*} data
+     * @param  {String*} data
      *         Raw card data
-     * @return {NSString*}
+     * @return {String*}
      *         Stringified JSON representation of parsed card data
      */
 
@@ -404,7 +404,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      *
      * @param  {UmRet}      ret
      *         Status of an SDK task
-     * @return {NSString*}
+     * @return {String*}
      *         Corresponding error message
      */
 
@@ -430,7 +430,7 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     /**
      * Pass event to method overload.
      *
-     * @param {NSString*} event
+     * @param {String*} event
      *        The event name
      */
 
@@ -441,9 +441,9 @@ public class CapacitorUnimagSwiper: CAPPlugin {
     /**
      * Format and send event to JavaScript side.
      *
-     * @param {NSString*} event
+     * @param {String*} event
      *        The event name
-     * @param {NSString*} data
+     * @param {String*} data
      *        Details about the event
      */
 
