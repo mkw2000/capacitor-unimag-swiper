@@ -23,6 +23,9 @@
   "dependencies": {
     "CapacitorCordova": [
       "1.4.0"
+    ],
+    "IDTech": [
+      "1.1.130"
     ]
   },
   "swift_versions": "4.2",

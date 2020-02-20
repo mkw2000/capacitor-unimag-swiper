@@ -2,10 +2,16 @@ PODS:
   - Capacitor (1.4.0):
     - CapacitorCordova (= 1.4.0)
   - CapacitorCordova (1.4.0)
+  - IDTech (1.1.130)
 
 DEPENDENCIES:
   - "Capacitor (from `../node_modules/@capacitor/ios`)"
   - "CapacitorCordova (from `../node_modules/@capacitor/ios`)"
+  - IDTech (= 1.1.130)
+
+SPEC REPOS:
+  trunk:
+    - IDTech
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -16,7 +22,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Capacitor: e548fe61e71fa160367a36387f54483647ca20f6
   CapacitorCordova: 17c1ed13e5303aa5153fb405adb4196cc56b40d5
+  IDTech: 765ce17ccbb9f941b155fe51707f65d50c58a30d
 
-PODFILE CHECKSUM: 18edf3816e869cc37578950affc00fdd78ee0dcb
+PODFILE CHECKSUM: 0f41cc08c40e98c7d7b201f40584239d4dbf3afb
 
 COCOAPODS: 1.8.4
