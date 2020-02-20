@@ -79,8 +79,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * Initializes uniMag object to start listening to SDK events
      * for connection, disconnection, swiping, etc.
      *
-     * @param {CDVInvokedUrlCommand*}
-     *        The command sent from JavaScript
      */
 
     @objc func activateReader(_ call: CAPPluginCall?) {
@@ -167,15 +165,11 @@ public class CapacitorUnimagSwiper: CAPPlugin {
      * called, the user will have 30 seconds to swipe a card before a
      * timeout error occurs.
      *
-     * @param {CDVInvokedUrlCommand*} command
-     *        The command sent from JavaScript
      */
 
     @objc func swipe(_ call: CAPPluginCall?) {
 
         DispatchQueue.global(qos: .background).async {
-            print("This is run on the background queue")
-            //            var result: CDVPluginResult?
 
             if self.reader != nil {
                 guard let reader = self.reader else {
@@ -186,7 +180,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
 
                     // Store status of swipe task
                     let swipeStarted = reader.requestSwipe()
-                    print(swipeStarted)
                     if swipeStarted == UMRET_SUCCESS {
                         call?.resolve([
                             "value": "swipe started",
@@ -301,7 +294,6 @@ public class CapacitorUnimagSwiper: CAPPlugin {
                 let parsedCardData = parseCardData(cardData)
 
                 if parsedCardData != "" {
-                    print(parsedCardData)
                     fireEvent("uniMagDidReceiveDataNotification", withData: parsedCardData)
                 } else {
                     fireEvent("uniMagInvalidSwipeNotification")
