@@ -13,6 +13,6 @@
     s.ios.vendored_library = 'Plugin/libIDTECH_UniMag.a'
     s.preserve_paths = 'Plugin/libIDTECH_UniMag.a'
     s.dependency 'Capacitor'
-    s.dependency 'IdTech'
+    s.dependency 'IDTech'
 
   end   
